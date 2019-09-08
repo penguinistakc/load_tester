@@ -1,4 +1,5 @@
 from typing import List, Dict
+from statistics import mean
 
 
 class Results:
@@ -55,7 +56,7 @@ class Results:
         >>> results.fastest()
         1.04
         """
-        pass
+        return self.requests[0]["request_time"]
 
     def average_time(self) -> float:
         """
@@ -72,9 +73,9 @@ class Results:
         ...     'request_time': 1.04,
         ... }])
         >>> results.average_time()
-        9.846666667
+        3.513333333333333
         """
-        pass
+        return mean([r["request_time"] for r in self.requests])
 
     def successful_requests(self) -> int:
         """
@@ -93,4 +94,4 @@ class Results:
         >>> results.successful_requests()
         2
         """
-        pass
+        return len([r for r in self.requests if r["status_code"] in range(200, 299)])
